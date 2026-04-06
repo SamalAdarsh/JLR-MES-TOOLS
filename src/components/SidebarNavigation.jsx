@@ -1,7 +1,7 @@
 import React from 'react';
 import { LayoutDashboard, Settings, Copy } from 'lucide-react';
 
-const Sidebar = ({ activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
+const SidebarNavigation = ({ activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
   return (
     <aside className={`w-64 flex flex-col sticky top-0 h-screen border-r ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50/50 backdrop-blur border-slate-200'}`}>
       <div className={`p-6 border-b ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
@@ -67,4 +67,4 @@ const Sidebar = ({ activeTab, setActiveTab, handleRunQuery, startTls, endTls, lo
   );
 };
 
-export default Sidebar;
+export default SidebarNavigation;
