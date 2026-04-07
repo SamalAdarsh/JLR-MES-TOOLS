@@ -12,15 +12,15 @@ const WorkflowTab = ({
 }) => {
 
   const renderStatusBadge = (data, expectedEmpty) => {
-    if (!data) return <span className={`${darkMode ? 'text-slate-500' : 'text-gray-400'} text-sm`}>Not Run</span>;
+    if (!data) return <span className={`${darkMode ? 'text-slate-500' : 'text-gray-400'} text-sm font-medium`}>Not Run</span>;
     const isEmpty = data.result.length === 0;
     
     if (expectedEmpty) {
       return isEmpty 
-        ? <span className="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm border border-green-200"><CheckCircle size={12}/> PASSED</span>
-        : <span className="px-2 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold flex items-center gap-1 shadow-sm border border-red-200"><AlertTriangle size={12}/> FAILED</span>;
+        ? <span className="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm border border-green-200"><CheckCircle size={14}/> PASSED</span>
+        : <span className="px-2.5 py-1 bg-red-100 text-red-700 rounded-full text-xs font-bold flex items-center gap-1.5 shadow-sm border border-red-200"><AlertTriangle size={14}/> FAILED</span>;
     } else {
-      return <span className="px-2 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold shadow-sm border border-blue-200">Data Loaded</span>;
+      return <span className="px-2.5 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold shadow-sm border border-blue-200">Data Loaded</span>;
     }
   };
 
@@ -59,7 +59,7 @@ const WorkflowTab = ({
                   <button
                     onClick={handleEnterBatch}
                     disabled={!startTls || !endTls}
-                    className={`h-14 px-6 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg ${
+                    className={`h-[56px] px-6 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg ${
                       (!startTls || !endTls) 
                       ? 'bg-slate-200 text-slate-400 cursor-not-allowed' 
                       : 'bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:shadow-blue-500/30 hover:scale-105 active:scale-95'
@@ -68,14 +68,14 @@ const WorkflowTab = ({
                     <Play fill="currentColor" size={18} /> Enter
                   </button>
 
-                  <div className={`px-4 h-14 rounded-xl border flex flex-col items-center justify-center min-w-25 ${darkMode ? 'border-slate-700 bg-slate-800' : 'border-slate-100 bg-slate-50'}`}>
+                  <div className={`px-4 h-[56px] rounded-xl border flex flex-col items-center justify-center min-w-[100px] ${darkMode ? 'border-slate-700 bg-slate-800' : 'border-slate-100 bg-slate-50'}`}>
                     <span className="text-[10px] font-bold text-slate-400 uppercase">Batch Size</span>
                     <span className={`text-xl font-bold ${theme.text}`}>{getBatchCount() > 0 ? getBatchCount() : '-'}</span>
                   </div>
                   
                   <button 
                   onClick={resetWorkflow}
-                  className={`h-14 px-4 rounded-xl font-medium transition-colors flex items-center justify-center ${darkMode ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-400 hover:bg-slate-50 hover:text-red-500'}`}
+                  className={`h-[56px] px-4 rounded-xl font-medium transition-colors flex items-center justify-center ${darkMode ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-400 hover:bg-slate-50 hover:text-red-500'}`}
                   title="Reset Form"
                   >
                   <RefreshCw size={20} />
@@ -89,10 +89,10 @@ const WorkflowTab = ({
       <div className="transition-all duration-500 ease-in-out transform opacity-100 translate-y-0">
           <div className={`${theme.card} rounded-2xl border overflow-hidden`}>
             <div className={`${theme.cardHeader} p-4 border-b flex justify-between items-center`}>
-                <h3 className={`font-bold flex items-center gap-3 ${theme.text}`}>
-                <div className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-blue-500/30">1</div>
-                OBOM Extraction & Validation
-                </h3>
+                <div className="flex gap-3 items-center">
+                  <div className="w-8 h-8 bg-blue-600 text-white rounded-lg flex items-center justify-center text-sm font-bold shadow-lg shadow-blue-500/30">1</div>
+                  <h3 className={`font-bold ${theme.text}`}>OBOM Extraction & Validation</h3>
+                </div>
                 {stepData['obom'] ? renderStatusBadge(stepData['obom'], false) : null}
             </div>
             
@@ -112,7 +112,7 @@ const WorkflowTab = ({
                   <div className={`rounded-xl h-72 overflow-auto border p-0 ${theme.codeBlock}`}>
                       {stepData['obom'] ? (
                       <table className="w-full text-left text-sm">
-                          <thead className="sticky top-0 bg-inherit z-10">
+                          <thead className={`sticky top-0 z-10 shadow-sm ${darkMode ? 'bg-slate-900' : 'bg-slate-50'}`}>
                           <tr className={`border-b ${theme.tableHeader}`}>
                               <th className="py-3 px-4">TLS ID</th>
                               <th className="py-3 px-4 text-right">Total Parts</th>
@@ -161,7 +161,7 @@ const WorkflowTab = ({
                       {websiteData ? (
                         <div className="overflow-auto font-mono text-sm flex-1">
                           <table className="w-full text-left">
-                            <thead className="sticky top-0 bg-inherit z-10 shadow-sm">
+                            <thead className={`sticky top-0 z-10 shadow-sm ${darkMode ? 'bg-slate-950' : 'bg-white'}`}>
                               <tr className={`border-b ${theme.tableHeader}`}>
                                 <th className="py-3 px-4">TLS ID</th>
                                 <th className="py-3 px-4 text-right">Count</th>
@@ -215,8 +215,8 @@ const WorkflowTab = ({
           </div>
       </div>
 
-      {/* STEPS 2, 3, 4 - THE CHECKS */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* STEPS 2, 3, 4 - THE CHECKS (NOW FULL WIDTH) */}
+      <div className="space-y-6">
           {[queries[1], queries[2], queries[3]].map((query, index) => {
           const actualIndex = index + 1; 
           const isDisabled = currentStep < 1; 
@@ -224,52 +224,59 @@ const WorkflowTab = ({
           const hasPassed = data && data.result.length === 0;
 
           return (
-              <div key={query.id} className={`${theme.card} rounded-2xl border flex flex-col transition-all duration-300 ${isDisabled ? 'opacity-40 grayscale blur-[1px]' : 'hover:scale-[1.02]'}`}>
-              <div className={`p-4 border-b flex justify-between items-start ${theme.cardHeader}`}>
-                  <div className="flex gap-3">
-                  <div className={`w-6 h-6 rounded-lg flex items-center justify-center text-xs font-bold ${hasPassed ? 'bg-green-500 text-white shadow-lg shadow-green-500/30' : 'bg-slate-200 text-slate-500'}`}>
-                      {index + 2}
+              <div key={query.id} className={`${theme.card} rounded-2xl border flex flex-col transition-all duration-300 ${isDisabled ? 'opacity-40 grayscale blur-[1px]' : 'hover:scale-[1.01]'}`}>
+              <div className={`p-4 border-b flex justify-between items-center ${theme.cardHeader}`}>
+                  <div className="flex gap-3 items-center">
+                    <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold ${hasPassed ? 'bg-green-500 text-white shadow-lg shadow-green-500/30' : 'bg-slate-200 text-slate-500'}`}>
+                        {index + 2}
+                    </div>
+                    <h3 className={`font-bold ${theme.text}`}>{query.name.split('. ')[1]}</h3>
                   </div>
-                  <h4 className={`font-bold text-sm ${theme.text}`}>{query.name.split('. ')[1]}</h4>
-                  </div>
+                  {data ? renderStatusBadge(data, true) : null}
               </div>
               
-              <div className="p-6 flex-1 flex flex-col items-center justify-center text-center">
-                  {data ? (
-                  hasPassed ? (
-                      <div className="text-green-500 animate-in zoom-in duration-300">
-                      <CheckCircle size={48} strokeWidth={1.5} className="mx-auto mb-3 drop-shadow-md"/>
-                      <span className="font-bold text-lg">Passed</span>
-                      </div>
-                  ) : (
-                      <div className="text-red-500 animate-in zoom-in duration-300 w-full">
-                      <AlertTriangle size={48} strokeWidth={1.5} className="mx-auto mb-3 drop-shadow-md"/>
-                      <span className="font-bold">Wait! Found Data.</span>
-                      <div className="text-xs mt-3 bg-red-50 p-3 rounded-lg text-left w-full overflow-hidden text-red-800 font-mono border border-red-100">
-                          {JSON.stringify(data.result[0]).slice(0, 50)}...
-                      </div>
-                      </div>
-                  )
-                  ) : (
-                  <span className={`text-sm italic ${theme.subText} flex flex-col items-center`}>
-                      <div className="w-12 h-1 bg-slate-200 rounded-full mb-2"></div>
-                      Pending execution...
-                  </span>
-                  )}
-              </div>
+              <div className="p-6 flex flex-col md:flex-row items-center gap-6">
+                  {/* Status output section */}
+                  <div className="flex-1 w-full flex items-center justify-center md:justify-start text-center md:text-left">
+                      {data ? (
+                      hasPassed ? (
+                          <div className="text-green-500 flex items-center gap-3 animate-in zoom-in duration-300">
+                          <CheckCircle size={32} strokeWidth={2} className="drop-shadow-md"/>
+                          <span className="font-bold text-lg">Check Passed Successfully</span>
+                          </div>
+                      ) : (
+                          <div className="text-red-500 flex flex-col md:flex-row items-center md:items-start gap-4 animate-in zoom-in duration-300 w-full">
+                          <AlertTriangle size={32} strokeWidth={2} className="drop-shadow-md flex-shrink-0 md:mt-1"/>
+                          <div className="w-full">
+                              <span className="font-bold text-lg block mb-2">Wait! Found Data.</span>
+                              <div className="text-xs bg-red-50 p-4 rounded-lg text-left w-full overflow-hidden text-red-800 font-mono border border-red-100">
+                                  {JSON.stringify(data.result[0])}
+                              </div>
+                          </div>
+                          </div>
+                      )
+                      ) : (
+                      <span className={`text-sm italic ${theme.subText} flex items-center gap-3`}>
+                          <div className="w-12 h-1 bg-slate-200 rounded-full hidden md:block"></div>
+                          Pending execution...
+                      </span>
+                      )}
+                  </div>
 
-              <div className={`p-4 border-t ${darkMode ? 'border-slate-700' : 'border-slate-100'}`}>
-                  <button
-                  disabled={isDisabled || loading}
-                  onClick={() => handleRunQuery(actualIndex)}
-                  className={`w-full py-2.5 rounded-xl font-bold text-sm transition-all shadow-sm active:scale-95 ${
-                      hasPassed 
-                      ? 'bg-green-50 text-green-600 hover:bg-green-100 border border-green-200' 
-                      : 'bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:shadow-blue-500/30 hover:shadow-lg'
-                  }`}
-                  >
-                  {loading ? 'Running...' : hasPassed ? 'Re-Verify' : 'Run Check'}
-                  </button>
+                  {/* Action button section */}
+                  <div className="w-full md:w-64 shrink-0">
+                      <button
+                      disabled={isDisabled || loading}
+                      onClick={() => handleRunQuery(actualIndex)}
+                      className={`w-full py-3 px-6 rounded-xl font-bold text-sm transition-all shadow-sm active:scale-95 flex items-center justify-center gap-2 ${
+                          hasPassed 
+                          ? 'bg-green-50 text-green-600 hover:bg-green-100 border border-green-200' 
+                          : 'bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:shadow-blue-500/30 hover:shadow-lg'
+                      }`}
+                      >
+                      {loading ? 'Running...' : hasPassed ? 'Re-Verify' : 'Run Check'}
+                      </button>
+                  </div>
               </div>
               </div>
           );
