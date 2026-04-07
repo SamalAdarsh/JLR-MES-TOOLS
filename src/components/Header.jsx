@@ -18,9 +18,13 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
 
   return (
     <header className={`px-8 py-4 border-b flex justify-between items-center transition-colors ${darkMode ? 'border-slate-800 bg-slate-900/50' : 'border-white bg-white/50 backdrop-blur'}`}>
-      <h2 className={`text-xl font-bold bg-linear-to-r from-slate-700 to-slate-500 bg-clip-text text-transparent ${darkMode ? 'from-slate-100 to-slate-400' : 'from-slate-800 to-slate-600'}`}>
-        TLS Sequencing
-      </h2>
+      
+      {/* Page Title */}
+      <div className="flex items-center gap-3">
+        <h2 className={`text-xl font-bold bg-gradient-to-r from-slate-700 to-slate-500 bg-clip-text text-transparent ${darkMode ? 'from-slate-100 to-slate-400' : 'from-slate-800 to-slate-600'}`}>
+          TLS Sequencing
+        </h2>
+      </div>
       
       <div className="flex items-center gap-6">
         

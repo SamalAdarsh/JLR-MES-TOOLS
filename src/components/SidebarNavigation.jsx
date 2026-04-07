@@ -4,9 +4,16 @@ import { LayoutDashboard, Settings, Copy } from 'lucide-react';
 const SidebarNavigation = ({ activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
   return (
     <aside className={`w-64 flex flex-col sticky top-0 h-screen border-r ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50/50 backdrop-blur border-slate-200'}`}>
-      <div className={`p-6 border-b ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
+      {/* Header containing the logo */}
+   
+      <div className={`p-6 border-b flex items-center gap-3 ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
+        <img 
+          src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
+          alt="JLR Logo" 
+          className="h-9 w-auto rounded bg-white p-1 object-contain shadow-sm"
+        />
         <h1 className="text-2xl font-bold bg-linear-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent">
-          JLR MES TOOLS
+          MES TOOLS
         </h1>
       </div>
       
