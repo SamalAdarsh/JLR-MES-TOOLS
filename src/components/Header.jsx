@@ -1,11 +1,10 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Sun, Moon, User, Settings, LogOut } from 'lucide-react';
+import { Sun, Moon, User, Settings, LogOut, Menu } from 'lucide-react';
 
-const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
+const Header = ({ darkMode, setDarkMode, theme, onLogout, isSidebarOpen, setIsSidebarOpen }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
-  // Close dropdown when clicking outside of it
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -17,22 +16,39 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
   }, []);
 
   return (
-    <header className={`relative z-50 px-8 py-4 border-b flex justify-between items-center transition-colors ${darkMode ? 'border-slate-800 bg-slate-900/50' : 'border-white bg-white/50 backdrop-blur'}`}>
+    <header className={`relative z-50 px-6 py-4 border-b flex justify-between items-center transition-colors ${darkMode ? 'border-slate-800 bg-slate-900/50' : 'border-white bg-white/50 backdrop-blur'}`}>
       
-      {/* Spacer to balance the flex layout */}
-      <div className="flex-1"></div>
+      {/* Left Area: Hamburger Menu + JLR Branding */}
+      <div className="flex-1 flex items-center gap-4">
+        <button 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className={`p-2 rounded-xl transition-all ${darkMode ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-200 text-slate-600'}`}
+          title="Toggle Sidebar"
+        >
+          <Menu size={24} />
+        </button>
+        
+        <div className="flex items-center gap-3">
+          <img 
+            src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
+            alt="JLR Logo" 
+            className="h-8 w-auto rounded bg-white p-1.5 object-contain shadow-sm hidden sm:block"
+          />
+          <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent hidden md:block">
+            MES TOOLS
+          </h1>
+        </div>
+      </div>
       
-      {/* Page Title - Centered within flex space, slightly biased left to compensate for sidebar */}
-      <div className="flex-1 flex justify-center pr-12 lg:pr-48">
+      {/* Center Area: Page Title */}
+      <div className="flex-1 flex justify-center lg:pr-24">
         <h2 className={`text-2xl font-black tracking-wide whitespace-nowrap bg-gradient-to-r bg-clip-text text-transparent ${darkMode ? 'from-white to-slate-400 drop-shadow-sm' : 'from-slate-900 to-slate-500'}`}>
           FA3 TLS Sequencing
         </h2>
       </div>
       
-      {/* Right Controls Container - flex-shrink-0 prevents it from being squished */}
+      {/* Right Area: Controls & Profile */}
       <div className="flex items-center gap-6 flex-shrink-0">
-        
-        {/* User Profile Area with Dropdown */}
         <div className="relative flex items-center gap-3 pl-6 border-l border-slate-200/50" ref={dropdownRef}>
           <div className="text-right leading-tight hidden md:block">
             <div className={`font-bold text-sm ${theme.text}`}>Adarsh Samal</div>
@@ -47,7 +63,6 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
             <User size={20} />
           </button>
 
-          {/* The Dropdown Menu */}
           {isDropdownOpen && (
             <div className={`absolute top-14 right-0 w-48 rounded-xl shadow-2xl border overflow-hidden z-50 ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-100'}`}>
               <div className="py-2">
@@ -80,7 +95,6 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
           )}
         </div>
 
-        {/* Theme Toggle Button */}
         <button 
           onClick={() => setDarkMode(!darkMode)}
           className={`p-2.5 rounded-xl transition-all ${darkMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-white text-slate-500 hover:text-indigo-600 hover:shadow-md'}`}

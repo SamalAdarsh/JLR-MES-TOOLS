@@ -10,16 +10,16 @@ import { useTheme } from './hooks/useTheme';
 import { useWorkflowLogic } from './hooks/useWorkflowLogic';
 
 const App = () => {
-  // Check localStorage on initial load to see if user is already logged in
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem('jlr_auth') === 'true';
   });
   
   const [activeTab, setActiveTab] = useState('workflow'); 
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Manages sidebar expansion
+  
   const { darkMode, setDarkMode, theme } = useTheme();
   const workflowState = useWorkflowLogic();
 
-  // Handlers to manage login/logout state AND localStorage
   const handleLogin = () => {
     localStorage.setItem('jlr_auth', 'true');
     setIsAuthenticated(true);
@@ -33,31 +33,20 @@ const App = () => {
   return (
     <Router>
       <Routes>
-        
-        {/* LOGIN ROUTE */}
         <Route 
           path="/login" 
           element={
-            isAuthenticated ? (
-              <Navigate to="/" replace /> 
-            ) : (
-              <Login 
-                onLogin={handleLogin} 
-                theme={theme} 
-                darkMode={darkMode} 
-                setDarkMode={setDarkMode} 
-              />
-            )
+            isAuthenticated ? <Navigate to="/" replace /> : <Login onLogin={handleLogin} theme={theme} darkMode={darkMode} setDarkMode={setDarkMode} />
           } 
         />
-
-        {/* MAIN DASHBOARD ROUTE */}
+        
         <Route 
           path="/" 
           element={
             isAuthenticated ? (
               <div className={`min-h-screen font-sans flex transition-colors duration-300 ${theme.bg} ${theme.text}`}>
                 <SidebarNavigation 
+                  isSidebarOpen={isSidebarOpen} 
                   activeTab={activeTab} setActiveTab={setActiveTab} 
                   handleRunQuery={workflowState.handleRunQuery} 
                   startTls={workflowState.startTls} endTls={workflowState.endTls} 
@@ -68,6 +57,8 @@ const App = () => {
 
                 <main className="flex-1 flex flex-col h-screen overflow-hidden">
                   <Header 
+                    isSidebarOpen={isSidebarOpen} 
+                    setIsSidebarOpen={setIsSidebarOpen} 
                     darkMode={darkMode} 
                     setDarkMode={setDarkMode} 
                     theme={theme} 
@@ -105,7 +96,6 @@ const App = () => {
             )
           } 
         />
-
       </Routes>
     </Router>
   );
