@@ -19,14 +19,15 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
   return (
     <header className={`px-8 py-4 border-b flex justify-between items-center transition-colors ${darkMode ? 'border-slate-800 bg-slate-900/50' : 'border-white bg-white/50 backdrop-blur'}`}>
       
-      {/* Page Title */}
-      <div className="flex items-center gap-3">
-        <h2 className={`text-xl font-bold bg-gradient-to-r from-slate-700 to-slate-500 bg-clip-text text-transparent ${darkMode ? 'from-slate-100 to-slate-400' : 'from-slate-800 to-slate-600'}`}>
-          TLS Sequencing
+      {/* Page Title - Centered within flex space, slightly biased left to compensate for sidebar */}
+      <div className="flex-1 flex justify-center pr-12 lg:pr-48">
+        <h2 className={`text-2xl font-black tracking-wide whitespace-nowrap ${darkMode ? 'text-white drop-shadow-md' : 'text-slate-900'}`}>
+          FA3 TLS Sequencing
         </h2>
       </div>
       
-      <div className="flex items-center gap-6">
+      {/* Right Controls Container - flex-shrink-0 prevents it from being squished */}
+      <div className="flex items-center gap-6 shrink-0">
         
         {/* User Profile Area with Dropdown */}
         <div className="relative flex items-center gap-3 pl-6 border-l border-slate-200/50" ref={dropdownRef}>
@@ -37,7 +38,7 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
           
           <button 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/20 transition-transform active:scale-95 ${darkMode ? 'bg-indigo-600 text-white hover:bg-indigo-500' : 'bg-gradient-to-br from-blue-500 to-indigo-600 text-white hover:shadow-indigo-500/30'}`}
+            className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/20 transition-transform active:scale-95 ${darkMode ? 'bg-indigo-600 text-white hover:bg-indigo-500' : 'bg-linear-to-br from-blue-500 to-indigo-600 text-white hover:shadow-indigo-500/30'}`}
             title="User Menu"
           >
             <User size={20} />
