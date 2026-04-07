@@ -1,24 +1,41 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sun, Moon, User, Settings, LogOut } from 'lucide-react';
 
-const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
+// Moved outside the component to act as a pure utility function
+const calculateShift = () => {
+  const hour = new Date().getHours();
+  if (hour >= 6 && hour < 14) return 'Morning';   // 06:00 to 13:59
+  if (hour >= 14 && hour < 22) return 'Afternoon'; // 14:00 to 21:59
+  return 'Night';                                  // 22:00 to 05:59
+};
+
+const Header = ({ darkMode, setDarkMode, theme, onLogout, user }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  // Initialize the state directly with the function, avoiding the sync setState inside useEffect
+  const [shift, setShift] = useState(calculateShift());
   const dropdownRef = useRef(null);
 
   useEffect(() => {
+    // Update shift dynamically every minute to catch shift rollovers while the app is open
+    const timer = setInterval(() => setShift(calculateShift()), 60000);
+
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      clearInterval(timer);
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
   }, []);
 
   return (
     <header className={`relative z-50 px-6 py-4 border-b flex justify-between items-center transition-colors ${darkMode ? 'border-slate-800 bg-slate-900/50' : 'border-white bg-white/50 backdrop-blur'}`}>
       
-      {/* Left Area: JLR Branding (Hamburger removed) */}
+      {/* Left Area: JLR Branding (Hamburger moved to SidebarNavigation) */}
       <div className="flex-1 flex items-center gap-3">
         <img 
           src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
@@ -30,7 +47,7 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
         </h1>
       </div>
       
-      {/* Center Area: Page Title */}
+      {/* Center Area: Page Title (Pushed left slightly to balance the layout) */}
       <div className="flex-1 flex justify-center pr-12 md:pr-24 lg:pr-48 xl:pr-64">
         <h2 className={`text-2xl font-black tracking-wide whitespace-nowrap bg-gradient-to-r bg-clip-text text-transparent ${darkMode ? 'from-white to-slate-400 drop-shadow-sm' : 'from-slate-900 to-slate-500'}`}>
           FA3 TLS Sequencing
@@ -41,8 +58,10 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
       <div className="flex items-center gap-6 flex-shrink-0">
         <div className="relative flex items-center gap-3 pl-6 border-l border-slate-200/50" ref={dropdownRef}>
           <div className="text-right leading-tight hidden md:block">
-            <div className={`font-bold text-sm ${theme.text}`}>Adarsh Samal</div>
-            <div className={`text-xs ${theme.subText}`}>Operator • Morning</div>
+            {/* Dynamic User Name passed from App Component */}
+            <div className={`font-bold text-sm ${theme.text}`}>{user || 'Operator'}</div>
+            {/* Dynamic Shift Calculated by System Time */}
+            <div className={`text-xs ${theme.subText}`}>Operator • {shift}</div>
           </div>
           
           <button 

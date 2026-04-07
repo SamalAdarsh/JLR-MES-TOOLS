@@ -10,6 +10,11 @@ import { useTheme } from './hooks/useTheme';
 import { useWorkflowLogic } from './hooks/useWorkflowLogic';
 
 const App = () => {
+  // Add state to track the logged-in user
+  const [user, setUser] = useState(() => {
+    return localStorage.getItem('jlr_user') || 'Operator';
+  });
+
   const [isAuthenticated, setIsAuthenticated] = useState(() => {
     return localStorage.getItem('jlr_auth') === 'true';
   });
@@ -20,13 +25,20 @@ const App = () => {
   const { darkMode, setDarkMode, theme } = useTheme();
   const workflowState = useWorkflowLogic();
 
-  const handleLogin = () => {
+  // Accept username from the Login component
+  const handleLogin = (username) => {
     localStorage.setItem('jlr_auth', 'true');
+    if (username) {
+        localStorage.setItem('jlr_user', username);
+        setUser(username);
+    }
     setIsAuthenticated(true);
   };
 
   const handleLogout = () => {
     localStorage.removeItem('jlr_auth');
+    localStorage.removeItem('jlr_user');
+    setUser('Operator');
     setIsAuthenticated(false);
   };
 
@@ -54,7 +66,6 @@ const App = () => {
           element={
             isAuthenticated ? (
               <div className={`min-h-screen font-sans flex transition-colors duration-300 ${theme.bg} ${theme.text}`}>
-                {/* Passing sidebar state to SidebarNavigation */}
                 <SidebarNavigation 
                   isSidebarOpen={isSidebarOpen} 
                   setIsSidebarOpen={setIsSidebarOpen}
@@ -72,6 +83,7 @@ const App = () => {
                     setDarkMode={setDarkMode} 
                     theme={theme} 
                     onLogout={handleLogout} 
+                    user={user} // <-- Pass the user state down to Header
                   />
 
                   <div className="flex-1 overflow-y-auto p-8 scroll-smooth">

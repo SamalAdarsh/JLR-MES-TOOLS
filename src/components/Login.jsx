@@ -3,9 +3,9 @@ import { Key, Mail, User, Shield, ArrowRight, Sun, Moon } from 'lucide-react';
 import LoadingOverlay from './LoadingOverlay';
 
 const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
-  const [cdsid, setCdsid] = useState('ASAMAL1');
-  const [email, setEmail] = useState('ASAMAL@gmail.com');
-  const [password, setPassword] = useState('ASAMAL1');
+  const [cdsid, setCdsid] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
@@ -23,11 +23,12 @@ const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
     setIsLoading(true);
     setShowAnimation(true);
     
-    // Let the car animation play for 3.5 seconds before navigating to the dashboard
+    // Let the car animation play for 3.5 seconds before navigating
     setTimeout(() => {
       setIsLoading(false);
       setShowAnimation(false);
-      onLogin(); 
+      // Pass the CDSID (forced to uppercase) up to the App component
+      onLogin(cdsid.toUpperCase()); 
     }, 3500);
   };
 
@@ -36,7 +37,6 @@ const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
       {/* --- MAIN LOGIN SCREEN --- */}
       <div className={`min-h-screen w-full flex items-center justify-center transition-colors duration-500 ${theme.bg}`}>
         
-        {/* Theme Toggle positioned at the top right of the login screen */}
         <div className="absolute top-6 right-8 z-10">
           <button 
             onClick={() => setDarkMode(!darkMode)}
@@ -48,7 +48,6 @@ const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
         </div>
 
         <div className={`w-full max-w-md p-8 rounded-3xl border shadow-2xl relative overflow-hidden transition-all duration-300 ${theme.card}`}>
-          {/* Cool background glowing orb effects */}
           <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-20 pointer-events-none ${darkMode ? 'bg-blue-500' : 'bg-indigo-400'}`}></div>
           <div className={`absolute -bottom-24 -left-24 w-48 h-48 rounded-full blur-3xl opacity-20 pointer-events-none ${darkMode ? 'bg-indigo-500' : 'bg-blue-400'}`}></div>
 
