@@ -34,16 +34,13 @@ const LoadingOverlay = ({ isVisible }) => {
              />
            </div>
 
-           {/* Requested Range Rover Silhouette Image */}
-           {/* 'brightness-0 invert' forces the image to be solid white to fit the theme */}
+           {/* Local Range Rover Image
+             Removed 'brightness-0 invert' so the original colors of your PNG are preserved.
+           */}
            <img 
-             src="https://www.pngfind.com/pngs/m/176-1760205_range-rover-from-the-side-png-download-2011.png" 
-             alt="Range Rover Silhouette" 
-             className="w-80 h-auto drop-shadow-[0_15px_15px_rgba(255,255,255,0.2)] brightness-0 invert"
-             onError={(e) => {
-               // Fallback in case pngfind.com blocks local hotlinking
-               e.target.src = "https://freepngimg.com/thumb/land_rover/28414-land-rover-transparent-background.png";
-             }}
+             src="/range-rover.png" 
+             alt="Range Rover" 
+             className="w-80 h-auto drop-shadow-[0_15px_15px_rgba(255,255,255,0.2)]"
            />
         </div>
 
@@ -51,10 +48,10 @@ const LoadingOverlay = ({ isVisible }) => {
         <div className="w-[150vw] h-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent mt-2 opacity-50 shadow-lg"></div>
       </div>
 
-      {/* Loading Typography (Changed to Relative and pushed down to prevent overlapping) */}
+      {/* Loading Typography */}
       <div className="relative z-10 mt-16 flex flex-col items-center w-full px-4 text-center">
-        <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 tracking-[0.1em] md:tracking-[0.2em] uppercase animate-pulse drop-shadow-xl">
-          Fasten your seat belts
+        <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 tracking-[0.1em] md:tracking-[0.2em] animate-pulse drop-shadow-xl">
+          Fasten Your Seat Belts
         </h2>
         <p className="mt-6 text-blue-400 font-bold tracking-[0.2em] text-xs md:text-sm uppercase opacity-80">
           Initializing MES Dashboard
