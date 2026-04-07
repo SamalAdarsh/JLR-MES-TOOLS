@@ -1,7 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { LayoutDashboard, Settings, Copy, Menu } from 'lucide-react';
 
 const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
+  
+  // State to hold the current time
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Update the time every second
+  useEffect(() => {
+    const timer = setInterval(() => setCurrentTime(new Date()), 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Format the date and time explicitly for UK Time (Europe/London)
+  const datePart = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', day: '2-digit', month: 'short' }).format(currentTime);
+  const timePart = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(currentTime);
+  const ukTimeString = `${datePart}, ${timePart} UK`;
+
   return (
     <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} flex flex-col sticky top-0 h-screen border-r transition-all duration-300 ease-in-out z-40 overflow-hidden ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50/50 backdrop-blur border-slate-200'}`}>
       
@@ -66,11 +81,24 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
         </div>
       </nav>
 
+      {/* Footer Area with System Status and UK Time */}
       <div className={`p-6 border-t ${darkMode ? 'border-slate-800' : 'border-slate-200'} ${isSidebarOpen ? '' : 'flex flex-col items-center'}`}>
          {isSidebarOpen && <div className={`text-xs ${theme.subText} truncate`}>System Status</div>}
-         <div className={`flex items-center gap-2 ${isSidebarOpen ? 'mt-1' : ''}`} title={!isSidebarOpen ? "System Online" : ""}>
-           <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse flex-shrink-0"></div>
-           {isSidebarOpen && <span className="text-sm font-medium text-green-600 truncate">Online</span>}
+         
+         <div className={`flex items-center justify-between ${isSidebarOpen ? 'mt-1 w-full' : ''}`} title={!isSidebarOpen ? `System Online\n${ukTimeString}` : ""}>
+           
+           <div className="flex items-center gap-2">
+             <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse flex-shrink-0"></div>
+             {isSidebarOpen && <span className="text-sm font-medium text-green-600 truncate">Online</span>}
+           </div>
+
+           {/* UK Date & Time injected here */}
+           {isSidebarOpen && (
+             <div className={`text-[12px] font-mono font-medium ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
+               {ukTimeString}
+             </div>
+           )}
+
          </div>
       </div>
     </aside>

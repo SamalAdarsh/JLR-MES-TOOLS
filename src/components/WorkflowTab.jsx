@@ -38,7 +38,7 @@ const WorkflowTab = ({
                       maxLength={8}
                       value={startTls}
                       onChange={(e) => setStartTls(e.target.value)}
-                      placeholder="50100101"
+                      placeholder="eg: 50100101"
                       className={`w-full text-xl p-3 border rounded-xl outline-none font-mono transition-all duration-200 ${theme.input}`}
                   />
                 </div>
@@ -49,7 +49,7 @@ const WorkflowTab = ({
                       maxLength={8}
                       value={endTls}
                       onChange={(e) => setEndTls(e.target.value)}
-                      placeholder="50100105"
+                      placeholder=" eg: 50100105"
                       className={`w-full text-xl p-3 border rounded-xl outline-none font-mono transition-all duration-200 ${theme.input}`}
                   />
                 </div>
