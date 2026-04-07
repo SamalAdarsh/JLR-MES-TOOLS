@@ -1,11 +1,22 @@
 import React from 'react';
-import { LayoutDashboard, Settings, Copy } from 'lucide-react';
+import { LayoutDashboard, Settings, Copy, Menu } from 'lucide-react';
 
-const SidebarNavigation = ({ isSidebarOpen, activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
+const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
   return (
     <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} flex flex-col sticky top-0 h-screen border-r transition-all duration-300 ease-in-out z-40 overflow-hidden ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50/50 backdrop-blur border-slate-200'}`}>
       
-      <nav className={`flex-1 p-4 space-y-2 overflow-y-auto overflow-x-hidden pt-8`}>
+      {/* Top Header Area for Hamburger Menu (Aligns with main header height) */}
+      <div className={`h-[73px] flex items-center border-b flex-shrink-0 ${darkMode ? 'border-slate-800' : 'border-slate-200'} ${isSidebarOpen ? 'px-6 justify-start' : 'justify-center'}`}>
+        <button 
+          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+          className={`p-2 rounded-xl transition-all ${darkMode ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-200 text-slate-600'}`}
+          title="Toggle Sidebar"
+        >
+          <Menu size={24} />
+        </button>
+      </div>
+
+      <nav className={`flex-1 p-4 space-y-2 overflow-y-auto overflow-x-hidden pt-6`}>
         <button 
           onClick={() => setActiveTab('workflow')}
           className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${activeTab === 'workflow' ? theme.navItemActive : theme.navItemInactive}`}

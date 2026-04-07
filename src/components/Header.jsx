@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Sun, Moon, User, Settings, LogOut, Menu } from 'lucide-react';
+import { Sun, Moon, User, Settings, LogOut } from 'lucide-react';
 
-const Header = ({ darkMode, setDarkMode, theme, onLogout, isSidebarOpen, setIsSidebarOpen }) => {
+const Header = ({ darkMode, setDarkMode, theme, onLogout }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef(null);
 
@@ -18,30 +18,20 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout, isSidebarOpen, setIsSi
   return (
     <header className={`relative z-50 px-6 py-4 border-b flex justify-between items-center transition-colors ${darkMode ? 'border-slate-800 bg-slate-900/50' : 'border-white bg-white/50 backdrop-blur'}`}>
       
-      {/* Left Area: Hamburger Menu + JLR Branding */}
-      <div className="flex-1 flex items-center gap-4">
-        <button 
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className={`p-2 rounded-xl transition-all ${darkMode ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-200 text-slate-600'}`}
-          title="Toggle Sidebar"
-        >
-          <Menu size={24} />
-        </button>
-        
-        <div className="flex items-center gap-3">
-          <img 
-            src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
-            alt="JLR Logo" 
-            className="h-8 w-auto rounded bg-white p-1.5 object-contain shadow-sm hidden sm:block"
-          />
-          <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent hidden md:block">
-            MES TOOLS
-          </h1>
-        </div>
+      {/* Left Area: JLR Branding (Hamburger removed) */}
+      <div className="flex-1 flex items-center gap-3">
+        <img 
+          src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
+          alt="JLR Logo" 
+          className="h-8 w-auto rounded bg-white p-1.5 object-contain shadow-sm hidden sm:block"
+        />
+        <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent hidden md:block">
+          MES TOOLS
+        </h1>
       </div>
       
       {/* Center Area: Page Title */}
-      <div className="flex-1 flex justify-center lg:pr-24">
+      <div className="flex-1 flex justify-center pr-12 md:pr-24 lg:pr-48 xl:pr-64">
         <h2 className={`text-2xl font-black tracking-wide whitespace-nowrap bg-gradient-to-r bg-clip-text text-transparent ${darkMode ? 'from-white to-slate-400 drop-shadow-sm' : 'from-slate-900 to-slate-500'}`}>
           FA3 TLS Sequencing
         </h2>

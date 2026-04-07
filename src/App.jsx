@@ -15,7 +15,7 @@ const App = () => {
   });
   
   const [activeTab, setActiveTab] = useState('workflow'); 
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Manages sidebar expansion
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); 
   
   const { darkMode, setDarkMode, theme } = useTheme();
   const workflowState = useWorkflowLogic();
@@ -36,7 +36,16 @@ const App = () => {
         <Route 
           path="/login" 
           element={
-            isAuthenticated ? <Navigate to="/" replace /> : <Login onLogin={handleLogin} theme={theme} darkMode={darkMode} setDarkMode={setDarkMode} />
+            isAuthenticated ? (
+              <Navigate to="/" replace /> 
+            ) : (
+              <Login 
+                onLogin={handleLogin} 
+                theme={theme} 
+                darkMode={darkMode} 
+                setDarkMode={setDarkMode} 
+              />
+            )
           } 
         />
         
@@ -45,8 +54,10 @@ const App = () => {
           element={
             isAuthenticated ? (
               <div className={`min-h-screen font-sans flex transition-colors duration-300 ${theme.bg} ${theme.text}`}>
+                {/* Passing sidebar state to SidebarNavigation */}
                 <SidebarNavigation 
                   isSidebarOpen={isSidebarOpen} 
+                  setIsSidebarOpen={setIsSidebarOpen}
                   activeTab={activeTab} setActiveTab={setActiveTab} 
                   handleRunQuery={workflowState.handleRunQuery} 
                   startTls={workflowState.startTls} endTls={workflowState.endTls} 
@@ -57,8 +68,6 @@ const App = () => {
 
                 <main className="flex-1 flex flex-col h-screen overflow-hidden">
                   <Header 
-                    isSidebarOpen={isSidebarOpen} 
-                    setIsSidebarOpen={setIsSidebarOpen} 
                     darkMode={darkMode} 
                     setDarkMode={setDarkMode} 
                     theme={theme} 
