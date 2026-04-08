@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Key, Mail, User, Shield, ArrowRight, Sun, Moon } from 'lucide-react';
 import LoadingOverlay from './LoadingOverlay';
+import LoginBackground from './LoginBackground';
 
-const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
-  const [cdsid, setCdsid] = useState('ASAMA1');
-  const [email, setEmail] = useState('adarsh@gmail.com');
-  const [password, setPassword] = useState('ASAMA1');
+const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
+  const [cdsid, setCdsid] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);
@@ -28,61 +29,77 @@ const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
       setIsLoading(false);
       setShowAnimation(false);
       // Pass the CDSID (forced to uppercase) up to the App component
-      onLogin(cdsid.toUpperCase()); 
+      if (onLogin) onLogin(cdsid.toUpperCase()); 
     }, 3500);
   };
 
   return (
     <>
-      {/* --- MAIN LOGIN SCREEN --- */}
-      <div className={`min-h-screen w-full flex items-center justify-center transition-colors duration-500 ${theme.bg}`}>
+      <div className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black">
         
-        <div className="absolute top-6 right-8 z-10">
+        {/* Extracted Background Component */}
+        <LoginBackground darkMode={darkMode} />
+        
+        {/* --- THEME TOGGLE CONTROLS --- */}
+        <div className="absolute top-6 right-8 z-20">
           <button 
-            onClick={() => setDarkMode(!darkMode)}
-            className={`p-2.5 rounded-xl transition-all ${darkMode ? 'bg-slate-800 text-yellow-400 hover:bg-slate-700' : 'bg-white text-slate-500 hover:text-indigo-600 hover:shadow-md'}`}
+            onClick={() => setDarkMode && setDarkMode(!darkMode)}
+            className={`p-2.5 rounded-full transition-all backdrop-blur-md border ${
+              darkMode 
+                ? 'bg-slate-800/50 border-slate-600/50 text-yellow-400 hover:bg-slate-700/80 hover:shadow-[0_0_15px_rgba(250,204,21,0.3)]' 
+                : 'bg-white/50 border-white/60 text-indigo-600 hover:bg-white/80 hover:shadow-[0_0_15px_rgba(79,70,229,0.3)]'
+            }`}
             title={darkMode ? "Switch to Light Mode" : "Switch to Dark Mode"}
           >
             {darkMode ? <Sun size={20} /> : <Moon size={20} />}
           </button>
         </div>
 
-        <div className={`w-full max-w-md p-8 rounded-3xl border shadow-2xl relative overflow-hidden transition-all duration-300 ${theme.card}`}>
-          <div className={`absolute -top-24 -right-24 w-48 h-48 rounded-full blur-3xl opacity-20 pointer-events-none ${darkMode ? 'bg-blue-500' : 'bg-indigo-400'}`}></div>
-          <div className={`absolute -bottom-24 -left-24 w-48 h-48 rounded-full blur-3xl opacity-20 pointer-events-none ${darkMode ? 'bg-indigo-500' : 'bg-blue-400'}`}></div>
-
+        {/* --- GLASSMORPHISM LOGIN FORM --- */}
+        <div className={`w-full max-w-md p-8 rounded-[2rem] border shadow-2xl relative z-20 overflow-hidden transition-all duration-500 backdrop-blur-xl ${
+          darkMode 
+            ? 'bg-slate-900/50 border-slate-700/50 shadow-black/60 text-white' 
+            : 'bg-white/60 border-white/60 shadow-indigo-900/20 text-slate-900'
+        }`}>
+          
           <div className="relative z-10">
             <div className="flex justify-center mb-6">
-              <div className={`p-4 rounded-2xl shadow-lg ${darkMode ? 'bg-slate-800' : 'bg-white'}`}>
+              <div className={`p-4 rounded-2xl shadow-xl backdrop-blur-md border ${
+                darkMode ? 'bg-slate-800/60 border-slate-600/50' : 'bg-white/70 border-white/60'
+              }`}>
                 <Shield size={48} strokeWidth={1.5} className={darkMode ? 'text-blue-400' : 'text-indigo-600'} />
               </div>
             </div>
             
             <div className="text-center mb-8">
-              <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent mb-2">
+              <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent mb-2 drop-shadow-sm">
                 JLR MES TOOLS
               </h1>
-              <p className={`text-sm ${theme.subText}`}>Secure Operator Access Portal</p>
+              <p className={`text-sm font-medium ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>Secure Operator Access Portal</p>
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-5">
               {error && (
-                <div className="p-3 bg-red-500/10 border border-red-500/50 rounded-xl text-red-500 text-sm text-center font-medium animate-in zoom-in duration-200">
+                <div className="p-3 bg-red-500/20 border border-red-500/50 rounded-xl text-red-500 text-sm text-center font-medium animate-in zoom-in duration-200 backdrop-blur-md">
                   {error}
                 </div>
               )}
 
               <div className="space-y-1.5">
-                <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${theme.subText}`}>JLR CDSID</label>
+                <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 drop-shadow-sm ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>JLR CDSID</label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-500 transition-colors">
+                  <div className={`absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none transition-colors ${darkMode ? 'text-slate-400 group-focus-within:text-blue-400' : 'text-slate-500 group-focus-within:text-indigo-600'}`}>
                     <User size={18} />
                   </div>
                   <input 
                     type="text" 
                     value={cdsid}
                     onChange={(e) => setCdsid(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium ${theme.input}`}
+                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md ${
+                      darkMode 
+                        ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400 focus:bg-slate-900/80 focus:border-indigo-500' 
+                        : 'bg-white/60 border-white/60 text-slate-900 placeholder-slate-500 focus:bg-white/90 focus:border-indigo-400'
+                    }`}
                     placeholder="e.g. ASAMAL1"
                     disabled={isLoading}
                   />
@@ -90,16 +107,20 @@ const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
               </div>
 
               <div className="space-y-1.5">
-                <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${theme.subText}`}>Email ID</label>
+                <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 drop-shadow-sm ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>Email ID</label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-500 transition-colors">
+                  <div className={`absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none transition-colors ${darkMode ? 'text-slate-400 group-focus-within:text-blue-400' : 'text-slate-500 group-focus-within:text-indigo-600'}`}>
                     <Mail size={18} />
                   </div>
                   <input 
                     type="email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium ${theme.input}`}
+                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md ${
+                      darkMode 
+                        ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400 focus:bg-slate-900/80 focus:border-indigo-500' 
+                        : 'bg-white/60 border-white/60 text-slate-900 placeholder-slate-500 focus:bg-white/90 focus:border-indigo-400'
+                    }`}
                     placeholder="name@jaguarlandrover.com"
                     disabled={isLoading}
                   />
@@ -107,16 +128,20 @@ const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
               </div>
 
               <div className="space-y-1.5">
-                <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 ${theme.subText}`}>Password</label>
+                <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 drop-shadow-sm ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>Password</label>
                 <div className="relative group">
-                  <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400 group-focus-within:text-indigo-500 transition-colors">
+                  <div className={`absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none transition-colors ${darkMode ? 'text-slate-400 group-focus-within:text-blue-400' : 'text-slate-500 group-focus-within:text-indigo-600'}`}>
                     <Key size={18} />
                   </div>
                   <input 
                     type="password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all font-medium ${theme.input}`}
+                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md ${
+                      darkMode 
+                        ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400 focus:bg-slate-900/80 focus:border-indigo-500' 
+                        : 'bg-white/60 border-white/60 text-slate-900 placeholder-slate-500 focus:bg-white/90 focus:border-indigo-400'
+                    }`}
                     placeholder="••••••••"
                     disabled={isLoading}
                   />
@@ -126,10 +151,10 @@ const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
               <button 
                 type="submit" 
                 disabled={isLoading}
-                className={`w-full py-3.5 mt-6 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg active:scale-95 ${
+                className={`w-full py-3.5 mt-6 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg active:scale-95 border border-white/10 ${
                   isLoading 
-                  ? 'bg-indigo-500 text-white cursor-wait opacity-90' 
-                  : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-indigo-500/30 hover:from-blue-500 hover:to-indigo-500'
+                  ? 'bg-indigo-500/80 text-white cursor-wait opacity-90 backdrop-blur-md' 
+                  : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:from-blue-500 hover:to-indigo-500'
                 }`}
               >
                 {isLoading ? (
@@ -141,7 +166,7 @@ const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
             </form>
             
             <div className="mt-8 text-center">
-               <p className={`text-xs ${theme.subText}`}>Authorized Personnel Only. <br/> Access is logged and monitored.</p>
+               <p className={`text-xs font-medium drop-shadow-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Authorized Personnel Only. <br/> Access is logged and monitored.</p>
             </div>
           </div>
         </div>
