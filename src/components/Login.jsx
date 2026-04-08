@@ -3,9 +3,9 @@ import { Key, Mail, User, Shield, ArrowRight, Sun, Moon } from 'lucide-react';
 import LoadingOverlay from './LoadingOverlay';
 
 const Login = ({ onLogin, theme, darkMode, setDarkMode }) => {
-  const [cdsid, setCdsid] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [cdsid, setCdsid] = useState('ASAMA1');
+  const [email, setEmail] = useState('adarsh@gmail.com');
+  const [password, setPassword] = useState('ASAMA1');
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [showAnimation, setShowAnimation] = useState(false);

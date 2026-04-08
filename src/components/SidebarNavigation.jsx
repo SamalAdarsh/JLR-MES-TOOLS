@@ -18,7 +18,7 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
   const ukTimeString = `${datePart}, ${timePart} UK`;
 
   return (
-    <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} flex flex-col sticky top-0 h-screen border-r transition-all duration-300 ease-in-out z-40 overflow-hidden ${darkMode ? 'bg-slate-900 border-slate-800' : 'bg-slate-50/50 backdrop-blur border-slate-200'}`}>
+    <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} flex flex-col sticky top-0 h-screen border-r transition-all duration-300 ease-in-out z-40 overflow-hidden ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-200'}`}>
       
       {/* Top Header Area for Hamburger Menu (Aligns with main header height) */}
       <div className={`h-[73px] flex items-center border-b flex-shrink-0 ${darkMode ? 'border-slate-800' : 'border-slate-200'} ${isSidebarOpen ? 'px-6 justify-start' : 'justify-center'}`}>
@@ -83,19 +83,25 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
 
       {/* Footer Area with System Status and UK Time */}
       <div className={`p-6 border-t ${darkMode ? 'border-slate-800' : 'border-slate-200'} ${isSidebarOpen ? '' : 'flex flex-col items-center'}`}>
-         {isSidebarOpen && <div className={`text-xs ${theme.subText} truncate`}>System Status</div>}
          
-         <div className={`flex items-center justify-between ${isSidebarOpen ? 'mt-1 w-full' : ''}`} title={!isSidebarOpen ? `System Online\n${ukTimeString}` : ""}>
+         <div className={`flex justify-between items-end ${isSidebarOpen ? 'w-full' : ''}`} title={!isSidebarOpen ? `System Online\n${ukTimeString}` : ""}>
            
-           <div className="flex items-center gap-2">
-             <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse flex-shrink-0"></div>
-             {isSidebarOpen && <span className="text-sm font-medium text-green-600 truncate">Online</span>}
+           {/* Left side: System Status & Online */}
+           <div className="flex flex-col">
+             {isSidebarOpen && <div className={`text-xs ${theme.subText} truncate mb-1`}>System Status</div>}
+             <div className="flex items-center gap-2">
+               <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse flex-shrink-0"></div>
+               {isSidebarOpen && <span className="text-sm font-medium text-green-600 truncate">Online</span>}
+             </div>
            </div>
 
-           {/* UK Date & Time injected here */}
+           {/* Right side: UK Date & Time Stacked */}
            {isSidebarOpen && (
-             <div className={`text-[12px] font-mono font-medium ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>
-               {ukTimeString}
+             <div className="flex flex-col items-end">
+               <div className={`text-xs ${theme.subText} truncate mb-1`}>{datePart}</div>
+               <div className={`text-sm font-mono font-medium ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>
+                 {timePart} <span className={`text-[10px] uppercase font-bold ${darkMode ? 'text-slate-500' : 'text-slate-400'}`}>UK</span>
+               </div>
              </div>
            )}
 
