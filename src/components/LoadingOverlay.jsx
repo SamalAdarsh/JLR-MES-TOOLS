@@ -4,9 +4,9 @@ const LoadingOverlay = ({ isVisible }) => {
   if (!isVisible) return null;
 
   return (
-    <div className="fixed inset-0 z-[100] bg-slate-950 flex flex-col items-center justify-center overflow-hidden animate-in fade-in duration-500">
+    <div className="fixed inset-0 z-[100] bg-slate-900 flex flex-col items-center justify-center overflow-hidden animate-in fade-in duration-500">
+      {/* Lightened the base background color from slate-950 to slate-900 */}
       
-      {/* Custom CSS Animation Keyframes for the Car */}
       <style>{`
         @keyframes driveCar {
           0% { transform: translateX(100vw); }
@@ -19,24 +19,14 @@ const LoadingOverlay = ({ isVisible }) => {
         }
       `}</style>
       
-      <div className="absolute inset-0 bg-gradient-to-b from-slate-900 to-black opacity-80"></div>
+      {/* Lightened the gradient overlay to prevent it from getting completely black */}
+      <div className="absolute inset-0 bg-gradient-to-b from-slate-800 to-slate-950 opacity-80"></div>
 
-      {/* Car Graphic & Logo Wrapper */}
       <div className="relative z-10 w-full max-w-4xl flex flex-col items-center">
         <div className="animate-drive flex flex-col items-center w-full relative">
-          
-           {/* Glowing JLR Logo floating above car */}
-           <div className="absolute -top-24">
-             <img 
-               src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
-               alt="JLR Logo" 
-               className="h-10 w-auto rounded bg-white p-1.5 object-contain shadow-[0_0_25px_rgba(255,255,255,0.4)]"
-             />
-           </div>
+           
+           {/* JLR Logo has been successfully removed from here */}
 
-           {/* Local Range Rover Image
-             Removed 'brightness-0 invert' so the original colors of your PNG are preserved.
-           */}
            <img 
              src="/range-rover.png" 
              alt="Range Rover" 
@@ -44,20 +34,17 @@ const LoadingOverlay = ({ isVisible }) => {
            />
         </div>
 
-        {/* Faded Road Line */}
-        <div className="w-[150vw] h-1 bg-gradient-to-r from-transparent via-slate-600 to-transparent mt-2 opacity-50 shadow-lg"></div>
+        <div className="w-[150vw] h-1 bg-gradient-to-r from-transparent via-slate-500 to-transparent mt-2 opacity-50 shadow-lg"></div>
       </div>
 
-      {/* Loading Typography */}
       <div className="relative z-10 mt-16 flex flex-col items-center w-full px-4 text-center">
-        <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 tracking-[0.1em] md:tracking-[0.2em] animate-pulse drop-shadow-xl">
-          Fasten Your Seat Belts
+        <h2 className="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white to-slate-400 tracking-[0.1em] md:tracking-[0.2em] uppercase animate-pulse drop-shadow-xl">
+          Fasten your seat belts
         </h2>
         <p className="mt-6 text-blue-400 font-bold tracking-[0.2em] text-xs md:text-sm uppercase opacity-80">
           Initializing MES Dashboard
         </p>
         
-        {/* Loading Dots */}
         <div className="mt-8 flex gap-3">
           <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '0ms' }}></div>
           <div className="w-2.5 h-2.5 rounded-full bg-blue-500 animate-bounce" style={{ animationDelay: '150ms' }}></div>
