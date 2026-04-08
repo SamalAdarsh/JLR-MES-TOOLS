@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { 
   Play, Database, CheckCircle, AlertTriangle, 
   RefreshCw, ShieldAlert, Globe, Loader, ArrowRightCircle 
@@ -10,6 +10,22 @@ const WorkflowTab = ({
   isFetchingWeb, handleFetchWebsiteData, comparisonResult, handleCompare,
   currentStep, queries, darkMode, theme
 }) => {
+  // --- NEW STATE FOR MODAL ---
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [isSequencing, setIsSequencing] = useState(false);
+
+  // --- NEW HANDLER FOR FINAL SEQUENCE ---
+  const handleFinalSequence = () => {
+    setIsSequencing(true);
+    
+    // Simulate API call delay (Replace this setTimeout with your actual backend call)
+    setTimeout(() => {
+      console.log(`Sequencing batch ${startTls} to database...`);
+      setIsSequencing(false);
+      setShowConfirmModal(false);
+      // Optional: You can call resetWorkflow() here after success if you want to clear the screen
+    }, 1500);
+  };
 
   const renderStatusBadge = (data, expectedEmpty) => {
     if (!data) return <span className={`${darkMode ? 'text-slate-500' : 'text-gray-400'} text-sm font-medium`}>Not Run</span>;
@@ -25,7 +41,7 @@ const WorkflowTab = ({
   };
 
   return (
-    <div className="space-y-8 max-w-6xl mx-auto">
+    <div className="space-y-8 max-w-6xl mx-auto relative">
       {/* RANGE INPUT HEADER */}
       <div className={`${theme.card} p-1 rounded-2xl`}>
         <div className={`p-6 rounded-xl ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
@@ -297,11 +313,55 @@ const WorkflowTab = ({
             </div>
             <h2 className="text-3xl font-bold mb-2 bg-linear-to-r from-green-400 to-emerald-500 bg-clip-text text-transparent">Workflow Complete</h2>
             <p className="text-slate-400 mb-8 max-w-md mx-auto">All systems green. You are authorized to sequence the next production batch.</p>
-            <button className="bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white px-10 py-4 rounded-xl font-bold shadow-lg shadow-green-900/50 flex items-center gap-3 mx-auto transition-all hover:scale-105 active:scale-95 text-lg">
+            
+            {/* UPDATED BUTTON: NOW OPENS MODAL */}
+            <button 
+              onClick={() => setShowConfirmModal(true)}
+              className="bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white px-10 py-4 rounded-xl font-bold shadow-lg shadow-green-900/50 flex items-center gap-3 mx-auto transition-all hover:scale-105 active:scale-95 text-lg"
+            >
               Sequence Batch {startTls} <ArrowRightCircle size={24}/>
             </button>
           </div>
       </div>
+
+      {/* --- NEW CONFIRMATION MODAL --- */}
+      {showConfirmModal && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-4 animate-in fade-in duration-200">
+          <div className="bg-[#1e2433] border border-slate-700/50 rounded-2xl shadow-2xl p-6 max-w-sm w-full text-center transform transition-all">
+            
+            <div className="w-16 h-16 bg-orange-500/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <AlertTriangle className="text-orange-500 w-8 h-8" />
+            </div>
+            
+            <h3 className="text-xl font-bold text-white mb-2">
+              Confirm Sequence
+            </h3>
+            
+            <p className="text-sm text-slate-400 mb-8">
+              Are you sure you want to push batch <strong className="text-white">{startTls} to {endTls}</strong> to production? This action is final.
+            </p>
+            
+            <div className="flex gap-3 w-full">
+              <button 
+                onClick={() => setShowConfirmModal(false)}
+                disabled={isSequencing}
+                className="flex-1 px-4 py-2.5 bg-transparent border border-slate-600 hover:bg-slate-800 text-slate-300 font-semibold rounded-lg transition-colors disabled:opacity-50"
+              >
+                Cancel
+              </button>
+              
+              <button 
+                onClick={handleFinalSequence}
+                disabled={isSequencing}
+                className="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-[#00b65e] hover:bg-[#009b50] text-white font-semibold rounded-lg transition-colors shadow-lg shadow-green-900/20 disabled:opacity-70"
+              >
+                {isSequencing ? <Loader size={18} className="animate-spin" /> : 'Confirm'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 };
