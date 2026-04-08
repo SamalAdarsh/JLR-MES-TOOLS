@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Key, Mail, User, Shield, ArrowRight, Sun, Moon } from 'lucide-react';
+import { Key, Mail, User, ArrowRight, Sun, Moon } from 'lucide-react';
 import LoadingOverlay from './LoadingOverlay';
 import LoginBackground from './LoginBackground';
 
@@ -64,16 +64,21 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
           
           <div className="relative z-10">
             <div className="flex justify-center mb-6">
-              <div className={`p-4 rounded-2xl shadow-xl backdrop-blur-md border ${
+              <div className={`p-3 rounded-2xl shadow-xl backdrop-blur-md border ${
                 darkMode ? 'bg-slate-800/60 border-slate-600/50' : 'bg-white/70 border-white/60'
               }`}>
-                <Shield size={48} strokeWidth={1.5} className={darkMode ? 'text-blue-400' : 'text-indigo-600'} />
+              
+                <img 
+                  src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
+                  alt="JLR Logo" 
+                  className="h-20 w-20 object-contain rounded-xl bg-white p-1.5 shadow-sm"
+                />
               </div>
             </div>
             
             <div className="text-center mb-8">
               <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent mb-2 drop-shadow-sm">
-                JLR MES TOOLS
+                MES TOOLS
               </h1>
               <p className={`text-sm font-medium ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>Secure Operator Access Portal</p>
             </div>

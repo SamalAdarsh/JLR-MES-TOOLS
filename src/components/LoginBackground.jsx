@@ -12,6 +12,9 @@ const CAROUSEL_IMAGES = [
   "/jlr-bg-car-4.jpg",
   "/jlr-bg-car-5.jpg",
   "/jlr-bg-car-6.jpg",
+   "/jlr-bg-car-7.jpg",
+    "/jlr-bg-car-8.jpg",
+     "/jlr-bg-car-9.jpg",
 ];
 const LoginBackground = ({ darkMode }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
