@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { CheckCircle, ArrowRightCircle, AlertTriangle, Loader } from 'lucide-react';
 
-const SequenceCompletionStep = ({ stepData, startTls, endTls }) => {
+const SequenceCompletionStep = ({ stepData, startTls}) => {
   // 1. Initialize navigation and local states
   const navigate = useNavigate();
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -50,7 +50,8 @@ const SequenceCompletionStep = ({ stepData, startTls, endTls }) => {
               <AlertTriangle className="text-orange-500 w-8 h-8" />
             </div>
             <h3 className="text-xl font-bold text-white mb-2">Confirm Sequence</h3>
-            <p className="text-sm text-slate-400 mb-8">Are you sure you want to push batch <strong className="text-white">{startTls} to {endTls}</strong> to production? This action is final.</p>
+            <p className="text-sm text-slate-400 mb-8">Are you sure you want to move to </p>
+                   <p className="text-sm text-slate-400 mb-8">TLS SEQUENCE CONTROL page ?</p>
             <div className="flex gap-3 w-full">
               <button 
                 onClick={() => setShowConfirmModal(false)} 
