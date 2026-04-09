@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { LayoutDashboard, Settings, Copy, Menu, ClipboardList } from 'lucide-react';
+import { LayoutDashboard, Settings, Copy, Menu, ClipboardList, Sliders } from 'lucide-react';
 
 const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
   const navigate = useNavigate();
@@ -51,6 +51,7 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
           <LayoutDashboard size={20} className="flex-shrink-0" />
           {isSidebarOpen && <span className="truncate">Workflow</span>}
         </button>
+        
         <button 
            onClick={() => handleNavClick('queries')}
            className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${activeTab === 'queries' && location.pathname === '/' ? theme.navItemActive : theme.navItemInactive}`}
@@ -59,12 +60,20 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
           <Settings size={20} className="flex-shrink-0" />
           {isSidebarOpen && <span className="truncate">Query Manager</span>}
         </button>
+
+        {/* --- NEW TLS SEQUENCING SHORTCUT --- */}
+        <button 
+           onClick={() => navigate('/tls-control')}
+           className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${location.pathname === '/tls-control' ? theme.navItemActive : theme.navItemInactive}`}
+           title={!isSidebarOpen ? "TLS Sequencing" : ""}
+        >
+          <Sliders size={20} className="flex-shrink-0" />
+          {isSidebarOpen && <span className="truncate">TLS Sequencing</span>}
+        </button>
         
         <div className={`mt-8 pt-8 border-t ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
            {isSidebarOpen && <div className="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 truncate">Utility</div>}
            
-           {/* --- FIXED CHECK DUPLICATES BUTTON --- */}
-           {/* Removed the startTls/endTls dependency so it is always clickable unless loading */}
            <button 
              onClick={() => handleRunQuery(4)} // Duplicates (Index 4)
              disabled={loading}

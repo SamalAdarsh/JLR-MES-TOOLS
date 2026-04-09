@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import { CheckCircle, AlertTriangle } from 'lucide-react';
 
-// Imports from the same folder
+
 import RangeInputHeader from './RangeInputHeader';
 import ObomValidationStep from './ObomValidationStep';
 import VerificationStep from './VerificationStep';
 import SequenceCompletionStep from './SequenceCompletionStep';
 
 const WorkflowTab = (props) => {
-  const { startTls, queries, darkMode, stepData } = props; 
+  const { startTls, queries, darkMode} = props; 
 
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [isSequencing, setIsSequencing] = useState(false);
