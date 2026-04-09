@@ -6,6 +6,7 @@ import WorkflowTab from './components/WorkflowTab';
 import QueryManagerTab from './components/QueryManagerTab';
 import UtilityModal from './components/UtilityModal';
 import Login from './components/Login';
+import TlsSequencingControl from './components/TlsSequencingControl'; // <-- NEW IMPORT
 import { useTheme } from './hooks/useTheme';
 import { useWorkflowLogic } from './hooks/useWorkflowLogic';
 
@@ -61,6 +62,7 @@ const App = () => {
           } 
         />
         
+        {/* MAIN DASHBOARD ROUTE */}
         <Route 
           path="/" 
           element={
@@ -83,7 +85,7 @@ const App = () => {
                     setDarkMode={setDarkMode} 
                     theme={theme} 
                     onLogout={handleLogout} 
-                    user={user} // <-- Pass the user state down to Header
+                    user={user} 
                   />
 
                   <div className="flex-1 overflow-y-auto p-8 scroll-smooth">
@@ -117,6 +119,22 @@ const App = () => {
             )
           } 
         />
+
+        {/* --- NEW TLS CONTROL SCREEN ROUTE --- */}
+        <Route 
+          path="/tls-control"
+          element={
+            isAuthenticated ? (
+              <TlsSequencingControl 
+                darkMode={darkMode} 
+                theme={theme} 
+              />
+            ) : (
+              <Navigate to="/login" replace />
+            )
+          }
+        />
+        
       </Routes>
     </Router>
   );
