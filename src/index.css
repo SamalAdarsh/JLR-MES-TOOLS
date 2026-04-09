@@ -12,24 +12,21 @@
   }
 
   /* --- BROWSER AUTOFILL FIXES --- */
-
-  /* Fix for Dark Mode: Forces a dark slate background and white text */
   .dark input:-webkit-autofill,
   .dark input:-webkit-autofill:hover, 
   .dark input:-webkit-autofill:focus, 
   .dark input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 50px #0f172a inset !important; /* Matches Tailwind slate-900 */
-    -webkit-text-fill-color: #f8fafc !important; /* White text */
+    -webkit-box-shadow: 0 0 0 50px #0f172a inset !important;
+    -webkit-text-fill-color: #f8fafc !important;
     transition: background-color 5000s ease-in-out 0s;
   }
   
-  /* Fix for Light Mode: Forces a clean light slate background and dark text */
   input:-webkit-autofill,
   input:-webkit-autofill:hover, 
   input:-webkit-autofill:focus, 
   input:-webkit-autofill:active {
-    -webkit-box-shadow: 0 0 0 50px #f8fafc inset !important; /* Matches Tailwind slate-50 */
-    -webkit-text-fill-color: #0f172a !important; /* Dark text */
+    -webkit-box-shadow: 0 0 0 50px #f8fafc inset !important;
+    -webkit-text-fill-color: #0f172a !important;
     transition: background-color 5000s ease-in-out 0s;
   }
 }

@@ -85,7 +85,7 @@ const App = () => {
                     setDarkMode={setDarkMode} 
                     theme={theme} 
                     onLogout={handleLogout} 
-                    user={user} 
+                    user={user} // <-- Pass the user state down to Header
                   />
 
                   <div className="flex-1 overflow-y-auto p-8 scroll-smooth">
@@ -127,7 +127,9 @@ const App = () => {
             isAuthenticated ? (
               <TlsSequencingControl 
                 darkMode={darkMode} 
-                theme={theme} 
+                setDarkMode={setDarkMode} 
+                user={user}               
+                onLogout={handleLogout}   
               />
             ) : (
               <Navigate to="/login" replace />
