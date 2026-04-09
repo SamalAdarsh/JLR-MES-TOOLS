@@ -15,7 +15,7 @@ export const INITIAL_QUERIES = [
   },
   {
     id: 'missing',
-    name: '3. Check is there any missing Sub Assembly',
+    name: '3. Check is AG Processing done',
     sql: "SELECT part_id FROM COMPONENT_TRACKING WHERE tls_id BETWEEN @startTls AND @endTls AND scan_status = 'MISSING';",
     description: "Verifies that all physical parts have been scanned/accounted for.",
     expectedResult: "Empty Set"

@@ -2,8 +2,9 @@ import React from 'react';
 import { Play, RefreshCw } from 'lucide-react';
 
 const RangeInputHeader = ({ startTls, setStartTls, endTls, setEndTls, handleEnterBatch, getBatchCount, resetWorkflow, theme, darkMode }) => (
-  <div className={`${theme.card} p-1 rounded-2xl`}>
-    <div className={`p-6 rounded-xl ${darkMode ? 'bg-slate-900' : 'bg-white'}`}>
+  <div className={`${theme.card} rounded-2xl`}>
+    {/* ADDED: border and shadow classes here so the box is clearly outlined */}
+    <div className={`p-6 rounded-xl border ${darkMode ? 'bg-slate-900 border-slate-700 shadow-md' : 'bg-white border-slate-200 shadow-sm'}`}>
       <div className="flex flex-col md:flex-row items-end gap-6">
           <div className="flex-1 grid grid-cols-2 gap-6 w-full">
             <div className="space-y-2">

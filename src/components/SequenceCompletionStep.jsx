@@ -38,7 +38,7 @@ const SequenceCompletionStep = ({ stepData, startTls, endTls }) => {
             onClick={() => setShowConfirmModal(true)}
             className="bg-linear-to-r from-green-500 to-emerald-600 hover:from-green-400 hover:to-emerald-500 text-white px-10 py-4 rounded-xl font-bold shadow-lg flex items-center gap-3 mx-auto transition-all hover:scale-105 active:scale-95 text-lg"
           >
-            Sequence Batch {startTls} <ArrowRightCircle size={24}/>
+            Sequence Batch  <ArrowRightCircle size={24}/>
           </button>
         </div>
       </div>
