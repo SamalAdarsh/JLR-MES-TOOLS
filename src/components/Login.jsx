@@ -55,42 +55,45 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
           </button>
         </div>
 
-        {/* --- GLASSMORPHISM LOGIN FORM --- */}
-        <div className={`w-full max-w-md p-8 rounded-[2rem] border shadow-2xl relative z-20 overflow-hidden transition-all duration-500 backdrop-blur-xl ${
+        {/* --- GLASSMORPHISM LOGIN FORM (Height Reduced) --- */}
+        {/* Changed p-8 to p-6 to reduce overall padding */}
+        <div className={`w-full max-w-md p-6 rounded-[2rem] border shadow-2xl relative z-20 overflow-hidden transition-all duration-500 backdrop-blur-xl ${
           darkMode 
             ? 'bg-slate-900/50 border-slate-700/50 shadow-black/60 text-white' 
             : 'bg-white/60 border-white/60 shadow-indigo-900/20 text-slate-900'
         }`}>
           
           <div className="relative z-10">
-            <div className="flex justify-center mb-6">
+            {/* Changed mb-6 to mb-4 to shrink gap under logo */}
+            <div className="flex justify-center mb-4">
               <div className={`p-3 rounded-2xl shadow-xl backdrop-blur-md border ${
                 darkMode ? 'bg-slate-800/60 border-slate-600/50' : 'bg-white/70 border-white/60'
               }`}>
-              
                 <img 
                   src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
                   alt="JLR Logo" 
-                  className="h-20 w-20 object-contain rounded-xl bg-white p-1.5 shadow-sm"
+                  className="h-16 w-16 object-contain rounded-xl bg-white p-1.5 shadow-sm" // Shrunk logo slightly
                 />
               </div>
             </div>
             
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent mb-2 drop-shadow-sm">
+            {/* Changed mb-8 to mb-5 to shrink gap under title */}
+            <div className="text-center mb-5">
+              <h1 className="text-3xl font-extrabold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent mb-1 drop-shadow-sm">
                 MES TOOLS
               </h1>
-              <p className={`text-sm font-medium ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>Secure Operator Access Portal</p>
+              <p className={`text-xs font-medium ${darkMode ? 'text-slate-300' : 'text-slate-600'}`}>Secure Operator Access Portal</p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Changed space-y-5 to space-y-4 to pull inputs closer together */}
+            <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
                 <div className="p-3 bg-red-500/20 border border-red-500/50 rounded-xl text-red-500 text-sm text-center font-medium animate-in zoom-in duration-200 backdrop-blur-md">
                   {error}
                 </div>
               )}
 
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 drop-shadow-sm ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>JLR CDSID</label>
                 <div className="relative group">
                   <div className={`absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none transition-colors ${darkMode ? 'text-slate-400 group-focus-within:text-blue-400' : 'text-slate-500 group-focus-within:text-indigo-600'}`}>
@@ -100,7 +103,8 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
                     type="text" 
                     value={cdsid}
                     onChange={(e) => setCdsid(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md ${
+                    // Added inline autofill fix classes here
+                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_#0f172a] [&:-webkit-autofill]:[-webkit-text-fill-color:#fff] ${
                       darkMode 
                         ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400 focus:bg-slate-900/80 focus:border-indigo-500' 
                         : 'bg-white/60 border-white/60 text-slate-900 placeholder-slate-500 focus:bg-white/90 focus:border-indigo-400'
@@ -111,7 +115,7 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
                 </div>
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 drop-shadow-sm ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>Email ID</label>
                 <div className="relative group">
                   <div className={`absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none transition-colors ${darkMode ? 'text-slate-400 group-focus-within:text-blue-400' : 'text-slate-500 group-focus-within:text-indigo-600'}`}>
@@ -121,7 +125,8 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
                     type="email" 
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md ${
+                    // Added inline autofill fix classes here
+                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_#0f172a] [&:-webkit-autofill]:[-webkit-text-fill-color:#fff] ${
                       darkMode 
                         ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400 focus:bg-slate-900/80 focus:border-indigo-500' 
                         : 'bg-white/60 border-white/60 text-slate-900 placeholder-slate-500 focus:bg-white/90 focus:border-indigo-400'
@@ -132,7 +137,7 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
                 </div>
               </div>
 
-              <div className="space-y-1.5">
+              <div className="space-y-1">
                 <label className={`text-[10px] font-bold uppercase tracking-wider ml-1 drop-shadow-sm ${darkMode ? 'text-slate-300' : 'text-slate-700'}`}>Password</label>
                 <div className="relative group">
                   <div className={`absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none transition-colors ${darkMode ? 'text-slate-400 group-focus-within:text-blue-400' : 'text-slate-500 group-focus-within:text-indigo-600'}`}>
@@ -142,7 +147,8 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
                     type="password" 
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md ${
+                    // Added inline autofill fix classes here
+                    className={`w-full pl-11 pr-4 py-3 rounded-xl border outline-none focus:ring-2 focus:ring-indigo-500 transition-all font-medium backdrop-blur-md [&:-webkit-autofill]:shadow-[inset_0_0_0px_1000px_#0f172a] [&:-webkit-autofill]:[-webkit-text-fill-color:#fff] ${
                       darkMode 
                         ? 'bg-slate-900/50 border-slate-600/50 text-white placeholder-slate-400 focus:bg-slate-900/80 focus:border-indigo-500' 
                         : 'bg-white/60 border-white/60 text-slate-900 placeholder-slate-500 focus:bg-white/90 focus:border-indigo-400'
@@ -153,10 +159,11 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
                 </div>
               </div>
 
+              {/* Reduced mt-6 to mt-4 for the button */}
               <button 
                 type="submit" 
                 disabled={isLoading}
-                className={`w-full py-3.5 mt-6 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg active:scale-95 border border-white/10 ${
+                className={`w-full py-3.5 mt-4 rounded-xl font-bold flex justify-center items-center gap-2 transition-all shadow-lg active:scale-95 border border-white/10 ${
                   isLoading 
                   ? 'bg-indigo-500/80 text-white cursor-wait opacity-90 backdrop-blur-md' 
                   : 'bg-gradient-to-r from-blue-600 to-indigo-600 text-white hover:shadow-[0_0_20px_rgba(79,70,229,0.4)] hover:from-blue-500 hover:to-indigo-500'
@@ -170,8 +177,9 @@ const Login = ({ onLogin, darkMode = true, setDarkMode }) => {
               </button>
             </form>
             
-            <div className="mt-8 text-center">
-               <p className={`text-xs font-medium drop-shadow-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Authorized Personnel Only. <br/> Access is logged and monitored.</p>
+            {/* Reduced mt-8 to mt-5 for the footer */}
+            <div className="mt-5 text-center">
+               <p className={`text-[10px] font-medium drop-shadow-sm ${darkMode ? 'text-slate-400' : 'text-slate-600'}`}>Authorized Personnel Only. <br/> Access is logged and monitored.</p>
             </div>
           </div>
         </div>
