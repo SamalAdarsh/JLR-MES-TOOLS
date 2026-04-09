@@ -4,7 +4,7 @@ import { Activity, Power, PowerOff } from 'lucide-react';
 const TlsStatusOverview = ({ darkMode, isAutoSequenceEnabled, onToggleClick }) => {
   return (
     <div className={`p-6 lg:p-8 rounded-2xl border relative overflow-hidden shadow-xl shrink-0 transition-colors duration-500 ${darkMode ? 'bg-slate-800 border-slate-700' : 'bg-white border-slate-200 shadow-md'}`}>
-      <div className={`absolute top-0 left-0 w-full h-1 transition-all duration-700 ${isAutoSequenceEnabled ? 'bg-gradient-to-r from-emerald-500 to-teal-400' : 'bg-gradient-to-r from-red-500 to-orange-500'}`}></div>
+      <div className={`absolute top-0 left-0 w-full h-1 transition-all duration-700 ${isAutoSequenceEnabled ? 'bg-linear-to-r from-emerald-500 to-teal-400' : 'bg-linear-to-r from-red-500 to-orange-500'}`}></div>
       
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>

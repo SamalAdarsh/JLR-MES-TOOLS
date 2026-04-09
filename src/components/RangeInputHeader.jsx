@@ -3,7 +3,7 @@ import { Play, RefreshCw } from 'lucide-react';
 
 const RangeInputHeader = ({ startTls, setStartTls, endTls, setEndTls, handleEnterBatch, getBatchCount, resetWorkflow, theme, darkMode }) => (
   <div className={`${theme.card} rounded-2xl`}>
-    {/* ADDED: border and shadow classes here so the box is clearly outlined */}
+  
     <div className={`p-6 rounded-xl border ${darkMode ? 'bg-slate-900 border-slate-700 shadow-md' : 'bg-white border-slate-200 shadow-sm'}`}>
       <div className="flex flex-col md:flex-row items-end gap-6">
           <div className="flex-1 grid grid-cols-2 gap-6 w-full">
@@ -26,19 +26,19 @@ const RangeInputHeader = ({ startTls, setStartTls, endTls, setEndTls, handleEnte
           <div className="flex items-center gap-3">
               <button
                 onClick={handleEnterBatch} disabled={!startTls || !endTls}
-                className={`h-[56px] px-6 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg ${(!startTls || !endTls) ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:shadow-blue-500/30 hover:scale-105 active:scale-95'}`}
+                className={`h-14 px-6 rounded-xl font-bold transition-all flex items-center gap-2 shadow-lg ${(!startTls || !endTls) ? 'bg-slate-200 text-slate-400 cursor-not-allowed' : 'bg-linear-to-r from-blue-600 to-indigo-600 text-white hover:shadow-blue-500/30 hover:scale-105 active:scale-95'}`}
               >
                 <Play fill="currentColor" size={18} /> Enter
               </button>
 
-              <div className={`px-4 h-[56px] rounded-xl border flex flex-col items-center justify-center min-w-[100px] ${darkMode ? 'border-slate-700 bg-slate-800' : 'border-slate-100 bg-slate-50'}`}>
+              <div className={`px-4 h-14 rounded-xl border flex flex-col items-center justify-center min-w-25 ${darkMode ? 'border-slate-700 bg-slate-800' : 'border-slate-100 bg-slate-50'}`}>
                 <span className="text-[10px] font-bold text-slate-400 uppercase">Batch Size</span>
                 <span className={`text-xl font-bold ${theme.text}`}>{getBatchCount() > 0 ? getBatchCount() : '-'}</span>
               </div>
               
               <button 
                 onClick={resetWorkflow} title="Reset Form"
-                className={`h-[56px] px-4 rounded-xl font-medium transition-colors flex items-center justify-center ${darkMode ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-400 hover:bg-slate-50 hover:text-red-500'}`}
+                className={`h-14 px-4 rounded-xl font-medium transition-colors flex items-center justify-center ${darkMode ? 'text-slate-400 hover:bg-slate-800 hover:text-white' : 'text-slate-400 hover:bg-slate-50 hover:text-red-500'}`}
               >
                 <RefreshCw size={20} />
               </button>

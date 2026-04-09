@@ -1,5 +1,5 @@
 export const mockBackendService = {
-  executeQuery: async (queryId, range, sqlTemplate) => {
+  executeQuery: async (queryId, range) => {
     return new Promise((resolve) => {
       setTimeout(() => {
         const { start, end } = range;
@@ -8,7 +8,7 @@ export const mockBackendService = {
         const count = endNum - startNum + 1;
 
         switch (queryId) {
-          case 'obom': { // <-- Added curly brace to create a block scope
+          case 'obom': { 
             const sqlResults = [];
             for (let i = 0; i < count; i++) {
               const currentId = startNum + i;
@@ -19,13 +19,13 @@ export const mockBackendService = {
             }
             resolve(sqlResults);
             break;
-          } // <-- Closed block scope
+          }
           
-          case 'subassembly': { // <-- Added curly brace
+          case 'subassembly': { 
             const isReady = Math.random() > 0.3; 
             resolve(isReady ? [] : [{ batch_id: `PREV-${startNum - 1}`, status: 'IN_PROGRESS' }]);
             break;
-          } // <-- Closed block scope
+          } 
           
           case 'missing':
             resolve([]); 
@@ -35,7 +35,7 @@ export const mockBackendService = {
             resolve([]); 
             break;
             
-          case 'duplicates': { // <-- Added curly brace
+          case 'duplicates': { 
             const hasDuplicates = Math.random() < 0.2; 
             if (hasDuplicates) {
                 resolve([
@@ -46,7 +46,7 @@ export const mockBackendService = {
                 resolve([]); 
             }
             break;
-          } // <-- Closed block scope
+          } 
           
           default:
             resolve([]);

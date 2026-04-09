@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sun, Moon, User, Settings, LogOut } from 'lucide-react';
 
-// Moved outside the component to act as a pure utility function
+
 const calculateShift = () => {
   const hour = new Date().getHours();
   if (hour >= 6 && hour < 14) return 'Morning';   // 06:00 to 13:59
@@ -11,12 +11,12 @@ const calculateShift = () => {
 
 const Header = ({ darkMode, setDarkMode, theme, onLogout, user }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  // Initialize the state directly with the function, avoiding the sync setState inside useEffect
+ 
   const [shift, setShift] = useState(calculateShift());
   const dropdownRef = useRef(null);
 
   useEffect(() => {
-    // Update shift dynamically every minute to catch shift rollovers while the app is open
+  
     const timer = setInterval(() => setShift(calculateShift()), 60000);
 
     const handleClickOutside = (event) => {
@@ -35,38 +35,36 @@ const Header = ({ darkMode, setDarkMode, theme, onLogout, user }) => {
   return (
     <header className={`relative z-50 px-6 py-4 border-b flex justify-between items-center transition-colors ${darkMode ? 'border-slate-800 bg-slate-900/50' : 'border-white bg-white/50 backdrop-blur'}`}>
       
-      {/* Left Area: JLR Branding (Hamburger moved to SidebarNavigation) */}
+    
       <div className="flex-1 flex items-center gap-3">
         <img 
           src="https://img.favpng.com/21/11/11/jlr-logo-UnyQiUTN.jpg" 
           alt="JLR Logo" 
           className="h-8 w-auto rounded bg-white p-1.5 object-contain shadow-sm hidden sm:block"
         />
-        <h1 className="text-xl font-bold bg-gradient-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent hidden md:block">
+        <h1 className="text-xl font-bold bg-linear-to-r from-blue-500 to-indigo-600 bg-clip-text text-transparent hidden md:block">
           MES TOOLS
         </h1>
       </div>
-      
-      {/* Center Area: Page Title (Pushed left slightly to balance the layout) */}
+
       <div className="flex-1 flex justify-center pr-12 md:pr-24 lg:pr-48 xl:pr-64">
-        <h2 className={`text-2xl font-black tracking-wide whitespace-nowrap bg-gradient-to-r bg-clip-text text-transparent ${darkMode ? 'from-white to-slate-400 drop-shadow-sm' : 'from-slate-900 to-slate-500'}`}>
+        <h2 className={`text-2xl font-black tracking-wide whitespace-nowrap bg-linear-to-r bg-clip-text text-transparent ${darkMode ? 'from-white to-slate-400 drop-shadow-sm' : 'from-slate-900 to-slate-500'}`}>
           FA3 TLS Sequencing
         </h2>
       </div>
-      
-      {/* Right Area: Controls & Profile */}
-      <div className="flex items-center gap-6 flex-shrink-0">
+     
+      <div className="flex items-center gap-6 shrink-0">
         <div className="relative flex items-center gap-3 pl-6 border-l border-slate-200/50" ref={dropdownRef}>
           <div className="text-right leading-tight hidden md:block">
-            {/* Dynamic User Name passed from App Component */}
+         
             <div className={`font-bold text-sm ${theme.text}`}>{user || 'Operator'}</div>
-            {/* Dynamic Shift Calculated by System Time */}
+         
             <div className={`text-xs ${theme.subText}`}>Operator • {shift}</div>
           </div>
           
           <button 
             onClick={() => setIsDropdownOpen(!isDropdownOpen)}
-            className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/20 transition-transform active:scale-95 ${darkMode ? 'bg-indigo-600 text-white hover:bg-indigo-500' : 'bg-gradient-to-br from-blue-500 to-indigo-600 text-white hover:shadow-indigo-500/30'}`}
+            className={`w-10 h-10 rounded-full flex items-center justify-center shadow-lg ring-2 ring-white/20 transition-transform active:scale-95 ${darkMode ? 'bg-indigo-600 text-white hover:bg-indigo-500' : 'bg-linear-to-br from-blue-500 to-indigo-600 text-white hover:shadow-indigo-500/30'}`}
             title="User Menu"
           >
             <User size={20} />

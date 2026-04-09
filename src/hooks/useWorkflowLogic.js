@@ -55,7 +55,7 @@ export const useWorkflowLogic = () => {
       const data = await mockWebsiteService.fetchData({ start: startTls, end: endTls });
       setWebsiteData(data);
     } catch (e) {
-      console.error("Web fetch failed");
+      console.error("Web fetch failed: ",e);
     } finally {
       setIsFetchingWeb(false);
     }

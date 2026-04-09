@@ -5,8 +5,8 @@ export const useTheme = () => {
 
   const theme = {
     bg: darkMode 
-      ? 'bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950' 
-      : 'bg-gradient-to-br from-indigo-50 via-white to-blue-50',
+      ? 'bg-linear-to-br from-slate-900 via-slate-900 to-slate-950' 
+      : 'bg-linear-to-br from-indigo-50 via-white to-blue-50',
     text: darkMode ? 'text-slate-100' : 'text-slate-800',
     card: darkMode 
       ? 'bg-slate-900/80 backdrop-blur-sm border-slate-700 shadow-xl shadow-black/20' 

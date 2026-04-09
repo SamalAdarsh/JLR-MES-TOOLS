@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { LayoutDashboard, Settings, Copy, Menu, ClipboardList, Sliders } from 'lucide-react';
 
-const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
+const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActiveTab, handleRunQuery, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
   const navigate = useNavigate();
   const location = useLocation();
   
@@ -32,7 +32,7 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
     <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} flex flex-col sticky top-0 h-screen border-r transition-all duration-300 ease-in-out z-40 overflow-hidden ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-200'}`}>
       
       {/* Top Header Area for Hamburger Menu */}
-      <div className={`h-[73px] flex items-center border-b flex-shrink-0 ${darkMode ? 'border-slate-800' : 'border-slate-200'} ${isSidebarOpen ? 'px-6 justify-start' : 'justify-center'}`}>
+      <div className={`h-18.25 flex items-center border-b shrink-0 ${darkMode ? 'border-slate-800' : 'border-slate-200'} ${isSidebarOpen ? 'px-6 justify-start' : 'justify-center'}`}>
         <button 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
           className={`p-2 rounded-xl transition-all ${darkMode ? 'hover:bg-slate-800 text-slate-300' : 'hover:bg-slate-200 text-slate-600'}`}
@@ -48,7 +48,7 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
           className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${activeTab === 'workflow' && location.pathname === '/' ? theme.navItemActive : theme.navItemInactive}`}
           title={!isSidebarOpen ? "Workflow" : ""}
         >
-          <LayoutDashboard size={20} className="flex-shrink-0" />
+          <LayoutDashboard size={20} className="shrink-0" />
           {isSidebarOpen && <span className="truncate">Workflow</span>}
         </button>
         
@@ -57,17 +57,17 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
            className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${activeTab === 'queries' && location.pathname === '/' ? theme.navItemActive : theme.navItemInactive}`}
            title={!isSidebarOpen ? "Query Manager" : ""}
         >
-          <Settings size={20} className="flex-shrink-0" />
+          <Settings size={20} className="shrink-0" />
           {isSidebarOpen && <span className="truncate">Query Manager</span>}
         </button>
 
-        {/* --- NEW TLS SEQUENCING SHORTCUT --- */}
+    
         <button 
            onClick={() => navigate('/tls-control')}
            className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${location.pathname === '/tls-control' ? theme.navItemActive : theme.navItemInactive}`}
            title={!isSidebarOpen ? "TLS Sequencing" : ""}
         >
-          <Sliders size={20} className="flex-shrink-0" />
+          <Sliders size={20} className="shrink-0" />
           {isSidebarOpen && <span className="truncate">TLS Sequencing</span>}
         </button>
         
@@ -75,12 +75,12 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
            {isSidebarOpen && <div className="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 truncate">Utility</div>}
            
            <button 
-             onClick={() => handleRunQuery(4)} // Duplicates (Index 4)
+             onClick={() => handleRunQuery(4)} 
              disabled={loading}
              className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${theme.navItemInactive} ${loading ? 'opacity-50 cursor-wait' : 'hover:opacity-80'}`}
              title={!isSidebarOpen ? "Check Duplicates" : ""}
            >
-             <Copy size={20} className="flex-shrink-0" />
+             <Copy size={20} className="shrink-0" />
              {isSidebarOpen && <span className="truncate">{loading ? 'Running Check...' : 'Check Duplicates'}</span>}
            </button>
            
@@ -108,28 +108,28 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
              className={`w-full mt-2 flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${location.pathname === '/production-orders' ? theme.navItemActive : theme.navItemInactive}`}
              title={!isSidebarOpen ? "Production Orders" : ""}
            >
-             <ClipboardList size={20} className="flex-shrink-0" />
+             <ClipboardList size={20} className="shrink-0" />
              {isSidebarOpen && <span className="truncate">Production Orders</span>}
            </button>
 
         </div>
       </nav>
 
-      {/* Footer Area with System Status and UK Time */}
+      
       <div className={`p-6 border-t ${darkMode ? 'border-slate-800' : 'border-slate-200'} ${isSidebarOpen ? '' : 'flex flex-col items-center'}`}>
          
          <div className={`flex justify-between items-end ${isSidebarOpen ? 'w-full' : ''}`} title={!isSidebarOpen ? `System Online\n${ukTimeString}` : ""}>
            
-           {/* Left side: System Status & Online */}
+         
            <div className="flex flex-col">
              {isSidebarOpen && <div className={`text-xs ${theme.subText} truncate mb-1`}>System Status</div>}
              <div className="flex items-center gap-2">
-               <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse flex-shrink-0"></div>
+               <div className="w-2.5 h-2.5 bg-green-500 rounded-full animate-pulse shrink-0"></div>
                {isSidebarOpen && <span className="text-sm font-medium text-green-600 truncate">Online</span>}
              </div>
            </div>
 
-           {/* Right side: UK Date & Time Stacked */}
+          
            {isSidebarOpen && (
              <div className="flex flex-col items-end">
                <div className={`text-xs ${theme.subText} truncate mb-1`}>{datePart}</div>
