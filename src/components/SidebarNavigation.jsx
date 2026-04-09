@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { LayoutDashboard, Settings, Copy, Menu } from 'lucide-react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { LayoutDashboard, Settings, Copy, Menu, ClipboardList } from 'lucide-react';
 
 const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActiveTab, handleRunQuery, startTls, endTls, loading, theme, darkMode, utilityResult, setIsUtilityModalOpen }) => {
+  const navigate = useNavigate();
+  const location = useLocation();
   
   // State to hold the current time
   const [currentTime, setCurrentTime] = useState(new Date());
@@ -17,10 +20,18 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
   const timePart = new Intl.DateTimeFormat('en-GB', { timeZone: 'Europe/London', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }).format(currentTime);
   const ukTimeString = `${datePart}, ${timePart} UK`;
 
+  // Helper to handle navigation back to main tabs
+  const handleNavClick = (tabName) => {
+    if (location.pathname !== '/') {
+      navigate('/');
+    }
+    setActiveTab(tabName);
+  };
+
   return (
     <aside className={`${isSidebarOpen ? 'w-64' : 'w-20'} flex flex-col sticky top-0 h-screen border-r transition-all duration-300 ease-in-out z-40 overflow-hidden ${darkMode ? 'bg-slate-950 border-slate-800' : 'bg-slate-100 border-slate-200'}`}>
       
-      {/* Top Header Area for Hamburger Menu (Aligns with main header height) */}
+      {/* Top Header Area for Hamburger Menu */}
       <div className={`h-[73px] flex items-center border-b flex-shrink-0 ${darkMode ? 'border-slate-800' : 'border-slate-200'} ${isSidebarOpen ? 'px-6 justify-start' : 'justify-center'}`}>
         <button 
           onClick={() => setIsSidebarOpen(!isSidebarOpen)}
@@ -33,16 +44,16 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
 
       <nav className={`flex-1 p-4 space-y-2 overflow-y-auto overflow-x-hidden pt-6`}>
         <button 
-          onClick={() => setActiveTab('workflow')}
-          className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${activeTab === 'workflow' ? theme.navItemActive : theme.navItemInactive}`}
+          onClick={() => handleNavClick('workflow')}
+          className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${activeTab === 'workflow' && location.pathname === '/' ? theme.navItemActive : theme.navItemInactive}`}
           title={!isSidebarOpen ? "Workflow" : ""}
         >
           <LayoutDashboard size={20} className="flex-shrink-0" />
           {isSidebarOpen && <span className="truncate">Workflow</span>}
         </button>
         <button 
-           onClick={() => setActiveTab('queries')}
-           className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${activeTab === 'queries' ? theme.navItemActive : theme.navItemInactive}`}
+           onClick={() => handleNavClick('queries')}
+           className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${activeTab === 'queries' && location.pathname === '/' ? theme.navItemActive : theme.navItemInactive}`}
            title={!isSidebarOpen ? "Query Manager" : ""}
         >
           <Settings size={20} className="flex-shrink-0" />
@@ -51,10 +62,13 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
         
         <div className={`mt-8 pt-8 border-t ${darkMode ? 'border-slate-800' : 'border-slate-200'}`}>
            {isSidebarOpen && <div className="px-4 text-xs font-bold text-slate-400 uppercase tracking-wider mb-2 truncate">Utility</div>}
+           
+           {/* --- FIXED CHECK DUPLICATES BUTTON --- */}
+           {/* Removed the startTls/endTls dependency so it is always clickable unless loading */}
            <button 
              onClick={() => handleRunQuery(4)} // Duplicates (Index 4)
-             disabled={!startTls || !endTls || loading}
-             className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${theme.navItemInactive} ${(!startTls || !endTls || loading) ? 'opacity-50 cursor-not-allowed' : ''}`}
+             disabled={loading}
+             className={`w-full flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${theme.navItemInactive} ${loading ? 'opacity-50 cursor-wait' : 'hover:opacity-80'}`}
              title={!isSidebarOpen ? "Check Duplicates" : ""}
            >
              <Copy size={20} className="flex-shrink-0" />
@@ -78,6 +92,17 @@ const SidebarNavigation = ({ isSidebarOpen, setIsSidebarOpen, activeTab, setActi
                  {utilityResult.hasDuplicates ? 'DUPLICATES FOUND!' : 'DUP Check: CLEAN'}
              </div>
            )}
+
+           {/* --- PRODUCTION ORDERS BUTTON --- */}
+           <button 
+             onClick={() => navigate('/production-orders')}
+             className={`w-full mt-2 flex items-center gap-3 py-3 rounded-xl font-medium transition-all duration-200 ${isSidebarOpen ? 'px-4 justify-start' : 'justify-center'} ${location.pathname === '/production-orders' ? theme.navItemActive : theme.navItemInactive}`}
+             title={!isSidebarOpen ? "Production Orders" : ""}
+           >
+             <ClipboardList size={20} className="flex-shrink-0" />
+             {isSidebarOpen && <span className="truncate">Production Orders</span>}
+           </button>
+
         </div>
       </nav>
 
