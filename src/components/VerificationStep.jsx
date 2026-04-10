@@ -29,7 +29,7 @@ const VerificationStep = ({ query, index, currentStep, stepData, loading, handle
                   </div>
                 ) : (
                   <div className="text-red-500 flex flex-col md:flex-row items-center md:items-start gap-4 animate-in zoom-in duration-300 w-full">
-                    <AlertTriangle size={32} strokeWidth={2} className="drop-shadow-md flex-shrink-0 md:mt-1"/>
+                    <AlertTriangle size={32} strokeWidth={2} className="drop-shadow-md shrink-0 md:mt-1"/>
                     <div className="w-full">
                         <span className="font-bold text-lg block mb-2">Wait! Found Data.</span>
                         <div className="text-xs bg-red-50 p-4 rounded-lg text-left w-full overflow-hidden text-red-800 font-mono border border-red-100">
